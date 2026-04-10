@@ -1,13 +1,18 @@
 package monokai.whisperapilab.controller
 
-import org.springframework.web.bind.annotation.GetMapping
+import monokai.whisperapilab.service.TranscriptionsService
+import org.springframework.web.bind.annotation.PostMapping
+import org.springframework.web.bind.annotation.RequestParam
 import org.springframework.web.bind.annotation.RestController
+import org.springframework.web.multipart.MultipartFile
 
 
 @RestController
-class WhisperAPIController {
+class WhisperAPIController(
+    private val transcriptionsService: TranscriptionsService
+) {
 
-    @GetMapping("/whisper")
-    public fun helloWhisper() = "Hello World!"
+    @PostMapping("/whisper")
+    public fun helloWhisper(@RequestParam("file") file: MultipartFile) = transcriptionsService.transcription(file)
 
 }
