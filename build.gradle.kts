@@ -19,6 +19,12 @@ repositories {
     mavenCentral()
 }
 
+//dependencyManagement {
+//    imports {
+//        mavenBom("org.springframework.ai:spring-ai-bom:1.0.0")
+//    }
+//}
+
 dependencies {
     implementation("org.springframework.boot:spring-boot-starter-webmvc")
     implementation("org.jetbrains.kotlin:kotlin-reflect")
@@ -26,6 +32,8 @@ dependencies {
     testImplementation("org.springframework.boot:spring-boot-starter-webmvc-test")
     testImplementation("org.jetbrains.kotlin:kotlin-test-junit5")
     testRuntimeOnly("org.junit.platform:junit-platform-launcher")
+    implementation("com.openai:openai-java:0.31.0")
+
 }
 
 kotlin {
