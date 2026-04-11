@@ -15,6 +15,7 @@ class WhisperAPIController(
 ) {
 
     @PostMapping("/whisper")
-    public fun helloWhisper(@RequestParam("file") file: MultipartFile) = analyzerService.analyze(transcriptionsService.transcription(file)!!)
+    fun helloWhisper(@RequestParam("file") file: MultipartFile) =
+            analyzerService.analyze(transcriptionsService.transcription(file)!!)
 
 }

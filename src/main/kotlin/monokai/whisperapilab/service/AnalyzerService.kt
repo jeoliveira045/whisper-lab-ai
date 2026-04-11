@@ -1,18 +1,18 @@
 package monokai.whisperapilab.service
 
-import org.springframework.ai.chat.client.ChatClient
+
+import com.openai.client.OpenAIClient
+import com.openai.models.ChatCompletionCreateParams
+import com.openai.models.ChatModel
 import org.springframework.stereotype.Service
 
 @Service
-class AnalyzerService(private val chatClient: ChatClient.Builder) {
-
-    private val client = chatClient.build()
+class AnalyzerService(private val chatClient: OpenAIClient) {
 
     fun analyze(texto: String): String? {
-        return client.prompt()
-            .system("Você é um assistente que analisa transcrições de áudio.")
-            .user(texto)
-            .call()
-            .content()
+        val params = ChatCompletionCreateParams.builder().addUserMessage("faça um resume do seguinte texto: $texto").model(ChatModel.GPT_4).build()
+        val chatCompletion = chatClient.chat().completions().create(params)
+        val response = chatCompletion.choices().first().message().content().orElse("empty")
+        return response
     }
 }
