@@ -5,7 +5,7 @@ import org.springframework.web.multipart.MultipartFile
 import java.nio.file.Files
 
 fun splitAudioIntoChunks(file: MultipartFile, maxDurationSeconds: Int = 300): List<MultipartFile> {
-//    Aqui é declarado a lista de multipartfiles que vai vão ser transcritos paralelamente
+//    Aqui é declarado a lista de multipartfiles que vão ser transcritos paralelamente
     val chunks = mutableListOf<MultipartFile>()
     val originalFilename = file.originalFilename ?: "audio"
 //    Um arquivo temporario é criado para que o process builder possa realizar as devidas alterações
@@ -13,7 +13,7 @@ fun splitAudioIntoChunks(file: MultipartFile, maxDurationSeconds: Int = 300): Li
     tempInputFile.writeBytes(file.bytes)
     
     try {
-//        Comando para que o computador possa ser realizado com os sistemas
+//        Comando para que o arquivo possa passar pelas devidas alteracões usando o programa diretamente do sistema operacional
         val processBuilder = ProcessBuilder(
             "ffprobe", "-v", "error", "-show_entries", "format=duration",
             "-of", "default=noprint_wrappers=1:nokey=1", tempInputFile.absolutePath

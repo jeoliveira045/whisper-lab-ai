@@ -10,12 +10,12 @@ import reactor.core.publisher.Flux
 
 
 @RestController
-class WhisperAPIController(
+class TranscriptionAPIController(
     private val transcriptionsService: TranscriptionsService,
     private val analyzerService: AnalyzerService
 ) {
 
-    @PostMapping("/whisper")
+    @PostMapping("/transcription")
     fun helloWhisper(@RequestParam("file") file: MultipartFile): Flux<String> {
         val transcription = transcriptionsService.transcription(file)
 //        val transcription =  """

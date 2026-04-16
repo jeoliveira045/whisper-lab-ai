@@ -32,14 +32,10 @@ dependencies {
     testImplementation("org.springframework.boot:spring-boot-starter-webmvc-test")
     testImplementation("org.jetbrains.kotlin:kotlin-test-junit5")
     testRuntimeOnly("org.junit.platform:junit-platform-launcher")
-//    implementation("com.openai:openai-java:0.31.0")
     implementation("org.springframework.ai:spring-ai-starter-model-google-genai")
     implementation("com.google.cloud:libraries-bom:26.32.0")
-    // Source: https://mvnrepository.com/artifact/com.google.cloud/google-cloud-speech
     implementation("com.google.cloud:google-cloud-speech:4.78.0")
-    // Source: https://mvnrepository.com/artifact/org.jetbrains.kotlinx/kotlinx-coroutines-core
     implementation("org.jetbrains.kotlinx:kotlinx-coroutines-core:1.10.0")
-// Source: https://mvnrepository.com/artifact/org.springframework/spring-test
     implementation("org.springframework:spring-test:4.0.5.RELEASE")
 }
 

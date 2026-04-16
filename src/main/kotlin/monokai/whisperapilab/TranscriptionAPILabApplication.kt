@@ -4,8 +4,8 @@ import org.springframework.boot.autoconfigure.SpringBootApplication
 import org.springframework.boot.runApplication
 
 @SpringBootApplication
-class WhisperApiLabApplication
+class TranscriptionAPILabApplication
 
 fun main(args: Array<String>) {
-    runApplication<WhisperApiLabApplication>(*args)
+    runApplication<TranscriptionAPILabApplication>(*args)
 }
