@@ -1,10 +1,12 @@
 package monokai.whisperapilab.adapter
 
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.async
+import kotlinx.coroutines.runBlocking
 import org.springframework.mock.web.MockMultipartFile
 import org.springframework.stereotype.Component
 import org.springframework.web.multipart.MultipartFile
 import java.nio.file.Files
-import kotlin.concurrent.thread
 
 @Component
 class FFmpegAdapter : MediaProcessor {
@@ -80,7 +82,7 @@ class FFmpegAdapter : MediaProcessor {
         return chunks
     }
     
-    override fun convertToAudio(file: MultipartFile): ByteArray {
+    override fun convertToAudio(file: MultipartFile): ByteArray = runBlocking {
         val processBuilder = ProcessBuilder(
             "ffmpeg", "-i", "pipe:0",
             "-vn", "-acodec", "pcm_s16le", "-ar", "16000", "-ac", "1",
@@ -89,13 +91,18 @@ class FFmpegAdapter : MediaProcessor {
 
         val process = processBuilder.start()
 
-        thread {
+        val writeJob = async(Dispatchers.IO) {
             process.outputStream.use { it.write(file.bytes) }
         }
 
-        val audioData = process.inputStream.readBytes()
+        val readJob = async(Dispatchers.IO) {
+            process.inputStream.readBytes()
+        }
+
+        val audioData = readJob.await()
+        writeJob.await()
         process.waitFor()
         
-        return audioData
+        audioData
     }
 }
